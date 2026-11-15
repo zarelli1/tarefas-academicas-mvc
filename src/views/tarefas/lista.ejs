@@ -1,0 +1,53 @@
+<%- include('../partials/cabecalho') %>
+
+<h1>Minhas tarefas</h1>
+
+<nav class="filtros" aria-label="Filtrar tarefas">
+  <a href="/tarefas?status=todas" class="filtro <%= filtro === 'todas' ? 'ativo' : '' %>">Todas (<%= contagem.todas %>)</a>
+  <a href="/tarefas?status=pendente" class="filtro <%= filtro === 'pendente' ? 'ativo' : '' %>">Pendentes (<%= contagem.pendente %>)</a>
+  <a href="/tarefas?status=concluida" class="filtro <%= filtro === 'concluida' ? 'ativo' : '' %>">Concluídas (<%= contagem.concluida %>)</a>
+</nav>
+
+<% if (tarefas.length === 0) { %>
+  <p class="vazio">
+    <% if (filtro === 'todas') { %>
+      Nenhuma tarefa cadastrada ainda. <a href="/tarefas/nova">Cadastre a primeira.</a>
+    <% } else { %>
+      Nenhuma tarefa <%= filtro === 'pendente' ? 'pendente' : 'concluída' %>.
+    <% } %>
+  </p>
+<% } else { %>
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Título</th>
+        <th>Disciplina</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% tarefas.forEach((tarefa) => { %>
+        <tr>
+          <td><%= tarefa.id %></td>
+          <td><a href="/tarefas/<%= tarefa.id %>"><%= tarefa.titulo %></a></td>
+          <td><%= tarefa.disciplina %></td>
+          <td><span class="status status-<%= tarefa.status %>"><%= tarefa.status === 'concluida' ? 'Concluída' : 'Pendente' %></span></td>
+          <td class="acoes">
+            <a href="/tarefas/<%= tarefa.id %>" class="botao">Detalhes</a>
+            <a href="/tarefas/<%= tarefa.id %>/editar" class="botao">Editar</a>
+            <% if (tarefa.status === 'pendente') { %>
+              <form action="/tarefas/<%= tarefa.id %>/concluir" method="POST">
+                <button type="submit" class="botao botao-sucesso">Concluir</button>
+              </form>
+            <% } %>
+            <a href="/tarefas/<%= tarefa.id %>/excluir" class="botao botao-perigo">Excluir</a>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<%- include('../partials/rodape') %>

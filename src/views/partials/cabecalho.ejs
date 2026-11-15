@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= tituloPagina %> | Tarefas Acadêmicas</title>
+  <link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+  <header class="topo">
+    <a href="/tarefas" class="marca">Tarefas Acadêmicas</a>
+    <a href="/tarefas/nova" class="botao botao-primario">+ Nova tarefa</a>
+  </header>
+  <main class="conteudo">
+    <% if (typeof mensagem !== 'undefined' && mensagem) { %>
+      <p class="aviso"><%= mensagem %></p>
+    <% } %>

@@ -1,0 +1,39 @@
+<%- include('../partials/cabecalho') %>
+
+<h1>Tarefa #<%= tarefa.id %></h1>
+
+<dl class="detalhes">
+  <dt>Título</dt>
+  <dd><%= tarefa.titulo %></dd>
+
+  <dt>Descrição</dt>
+  <dd class="descricao"><%= tarefa.descricao || 'Sem descrição.' %></dd>
+
+  <dt>Disciplina</dt>
+  <dd><%= tarefa.disciplina %></dd>
+
+  <dt>Status</dt>
+  <dd><span class="status status-<%= tarefa.status %>"><%= tarefa.status === 'concluida' ? 'Concluída' : 'Pendente' %></span></dd>
+
+  <dt>Criada em</dt>
+  <dd><%= formatarData(tarefa.criadaEm) %></dd>
+
+  <dt>Última edição</dt>
+  <dd><%= formatarData(tarefa.atualizadaEm) %></dd>
+
+  <dt>Concluída em</dt>
+  <dd><%= formatarData(tarefa.concluidaEm) %></dd>
+</dl>
+
+<div class="linha-botoes">
+  <a href="/tarefas/<%= tarefa.id %>/editar" class="botao">Editar</a>
+  <% if (tarefa.status === 'pendente') { %>
+    <form action="/tarefas/<%= tarefa.id %>/concluir" method="POST">
+      <button type="submit" class="botao botao-sucesso">Marcar como concluída</button>
+    </form>
+  <% } %>
+  <a href="/tarefas/<%= tarefa.id %>/excluir" class="botao botao-perigo">Excluir</a>
+  <a href="/tarefas" class="botao">Voltar para a lista</a>
+</div>
+
+<%- include('../partials/rodape') %>

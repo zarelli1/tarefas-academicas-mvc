@@ -1,0 +1,22 @@
+{
+  "name": "tarefas-academicas-mvc",
+  "version": "1.0.0",
+  "description": "Gerenciador de tarefas acadêmicas em Node.js com padrão MVC e armazenamento em memória - Arquitetura de Software (Unoeste)",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "exemplos": "node src/app.js --exemplos",
+    "test": "node --test"
+  },
+  "keywords": ["nodejs", "express", "mvc", "ejs", "unoeste"],
+  "author": "Leonardo Zarelli",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}

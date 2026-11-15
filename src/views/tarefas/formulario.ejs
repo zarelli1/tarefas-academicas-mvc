@@ -1,0 +1,42 @@
+<%- include('../partials/cabecalho') %>
+
+<%
+  // A mesma view atende CADASTRO e EDIÇÃO; só muda o destino do formulário
+  const editando = modo === 'editar';
+  const destino = editando ? `/tarefas/${tarefa.id}/editar` : '/tarefas';
+%>
+
+<h1><%= editando ? 'Editar tarefa #' + tarefa.id : 'Nova tarefa' %></h1>
+
+<% if (Object.keys(erros).length > 0) { %>
+  <div class="erro-geral">Corrija os campos destacados antes de salvar.</div>
+<% } %>
+
+<form action="<%= destino %>" method="POST" class="formulario" novalidate>
+  <label for="titulo">Título *</label>
+  <input type="text" id="titulo" name="titulo" value="<%= tarefa.titulo %>"
+         minlength="<%= LIMITES.titulo.min %>" maxlength="<%= LIMITES.titulo.max %>"
+         class="<%= erros.titulo ? 'campo-invalido' : '' %>">
+  <small class="dica">Entre <%= LIMITES.titulo.min %> e <%= LIMITES.titulo.max %> caracteres.</small>
+  <% if (erros.titulo) { %><p class="erro"><%= erros.titulo %></p><% } %>
+
+  <label for="descricao">Descrição</label>
+  <textarea id="descricao" name="descricao" rows="5" maxlength="<%= LIMITES.descricao.max %>"
+            class="<%= erros.descricao ? 'campo-invalido' : '' %>"><%= tarefa.descricao %></textarea>
+  <small class="dica">Opcional, até <%= LIMITES.descricao.max %> caracteres.</small>
+  <% if (erros.descricao) { %><p class="erro"><%= erros.descricao %></p><% } %>
+
+  <label for="disciplina">Disciplina *</label>
+  <input type="text" id="disciplina" name="disciplina" value="<%= tarefa.disciplina %>"
+         minlength="<%= LIMITES.disciplina.min %>" maxlength="<%= LIMITES.disciplina.max %>"
+         class="<%= erros.disciplina ? 'campo-invalido' : '' %>">
+  <small class="dica">Entre <%= LIMITES.disciplina.min %> e <%= LIMITES.disciplina.max %> caracteres.</small>
+  <% if (erros.disciplina) { %><p class="erro"><%= erros.disciplina %></p><% } %>
+
+  <div class="linha-botoes">
+    <button type="submit" class="botao botao-primario"><%= editando ? 'Salvar alterações' : 'Cadastrar' %></button>
+    <a href="<%= editando ? '/tarefas/' + tarefa.id : '/tarefas' %>" class="botao">Cancelar</a>
+  </div>
+</form>
+
+<%- include('../partials/rodape') %>

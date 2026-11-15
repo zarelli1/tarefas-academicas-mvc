@@ -1,0 +1,17 @@
+<%- include('../partials/cabecalho') %>
+
+<h1>Excluir tarefa</h1>
+
+<div class="confirmacao">
+  <p>Tem certeza que deseja excluir a tarefa abaixo? Esta ação não pode ser desfeita.</p>
+  <p><strong>#<%= tarefa.id %> · <%= tarefa.titulo %></strong> (<%= tarefa.disciplina %>)</p>
+
+  <div class="linha-botoes">
+    <form action="/tarefas/<%= tarefa.id %>/excluir" method="POST">
+      <button type="submit" class="botao botao-perigo">Sim, excluir</button>
+    </form>
+    <a href="/tarefas/<%= tarefa.id %>" class="botao">Não, voltar</a>
+  </div>
+</div>
+
+<%- include('../partials/rodape') %>
